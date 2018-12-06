@@ -6,13 +6,20 @@ var spotify = new Spotify(keys.spotify);
 var exports = module.exports = {};
 
 exports.getSpotifyInfo = function getSpotifyInfo(songName) {
-    if (songName === undefined){
-        songName = "The Sign";
+    const defaultSong = "The Sign";
+    if (songName === "") {
+        callService(defaultSong);
     }
+    else {
+        callService(songName);
+    }
+
+}
+function callService(songName) {
     spotify
         .search({ type: 'track', query: songName })
         .then(function (response) {
-            console.log(JSON.stringify(response, null, 2));
+            foramtResponse(response);
         })
         .catch(function (error) {
             if (error.response) {
@@ -31,5 +38,20 @@ exports.getSpotifyInfo = function getSpotifyInfo(songName) {
             }
             console.log(error.config);
         });
+}
 
+function foramtResponse(response) {
+    var artists = [];
+    for (var i = 0; i < response.tracks.items.length; i++) {
+        for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
+            artists.push(response.tracks.items[i].artists[j].name);
+        }
+        console.log(
+            "Artist(s): " + artists.join(", ") + "\n" +
+            "Song Name: " + response.tracks.items[i].name + "\n" +
+            "Spotify Preview Link: " + response.tracks.items[i].preview_url + "\n" +
+            "Album: " + response.tracks.items[i].album.name + "\n"
+        );
+        artists = [];
+    }
 }
