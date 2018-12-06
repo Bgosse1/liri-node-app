@@ -11,7 +11,7 @@ function appendToLog(command, userInput) {
             console.log(err);
         }
         else {
-            console.log("Content Added!");
+            console.log("Command Logged!");
         }
     });
 }

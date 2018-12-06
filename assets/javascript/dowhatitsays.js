@@ -8,7 +8,14 @@ function readFile(callback) {
         if (error) {
             return console.log(error);
         }
-        var dataArr = data.split(",");
+        var dataArr = cleanData(data.split(","));
         callback(dataArr[0], dataArr[1]);
     });
 }
+// Clean Data to remove " " from the string, causes errors in concet-this command
+ function cleanData(dataArray){
+     for(var i = 0; i < dataArray.length; i++){
+        dataArray[i] = dataArray[i].replace(/['"]+/g, '');
+     }
+     return dataArray;
+ }
