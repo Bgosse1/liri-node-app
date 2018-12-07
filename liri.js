@@ -4,6 +4,7 @@ var omdb = require('./assets/javascript/omdb.js');
 var dwis = require('./assets/javascript/dowhatitsays.js');
 var log = require('./assets/javascript/log.js');
 
+
 var command = process.argv[2];
 var userInput = process.argv.slice(3).join(" ");
 
